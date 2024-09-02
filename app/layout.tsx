@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Exo_2 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] });
+const exo2 = Exo_2({subsets: ["latin"], variable: "--font-exo2"});
 
 export const metadata: Metadata = {
   title: "Sollet - Your Solana Wallet",
@@ -18,17 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${exo2.variable} font-exo2`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen px-16 py-8 max-h-screen">
+          <div className="min-h-screen px-4 md:px-0 py-8 md:max-w-[75vw] mx-auto max-h-screen">
             <Navbar />
             {children}
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -15,17 +15,101 @@ import Image from "next/image";
 import { mnemonicToSeedSync } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import nacl from "tweetnacl";
-import { Keypair } from "@solana/web3.js";
+import {
+  clusterApiUrl,
+  Connection,
+  Keypair,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+} from "@solana/web3.js";
+import { useToast } from "@/components/ui/use-toast";
+import axios from "axios";
 
-export default function AccountDetails({seed, idx}: {seed: string, idx: number}) {
+export default function AccountDetails({
+  seed,
+  idx,
+}: {
+  seed: string;
+  idx: number;
+}) {
   const [showPubKey, setShowPubKey] = useState<boolean>(false);
   const [copyPubKey, setCopyPubKey] = useState<boolean>(false);
   const [publicKey, showPublicKey] = useState<string>();
+  const [accBalance, setAccBalance] = useState<number>(0);
+  const [solBalance, setSolBalance] = useState<number>(0);
+  const [solPrice, setSolPrice] = useState<number>(0);
+  const { toast } = useToast();
+
+  const getSolBalance = async (callApiNow: boolean) => {
+    if (publicKey) {
+      const url = `/api/account?publicKey=${publicKey}${callApiNow ? "&callApiNow=true" : ""}`;
+      try {
+        const res = await axios.get(url);
+        const newBalance = res.data.result.value/LAMPORTS_PER_SOL;
+        setSolBalance(newBalance);
+        setAccBalance(parseFloat((solPrice * solBalance).toFixed(2)));
+      } catch(err) {
+        console.log("Error while fetching balance", err);
+        toast({
+          title: "Balance",
+          description: "Fetching failed",
+          style: {
+            backgroundColor: "red",
+          },
+        });
+      }
+    }
+  };
+
+  const getSolPrice = async () => {
+    try {
+      const res = await axios.get("/api/tokens");
+      setSolPrice(res.data.data.SOL.price);
+
+      setAccBalance(parseFloat((solPrice * solBalance).toFixed(2)));
+    } catch(err) {
+      console.log("Error while fetching current Price", err);
+      toast({
+        title: "Price",
+        description: "Fetching failed",
+        style: {
+          backgroundColor: "red",
+        },
+      });
+    }
+  }
+
+  const receiveSOL = async () => {
+    if (publicKey) {
+      try {
+        await axios.post(`/api/account/requestSolAirDrop?publicKey=${publicKey}`);
+
+        toast({
+          title: "Transaction Status",
+          description: "1 SOL added to your account",
+          style: {
+            backgroundColor: "green",
+          },
+        });
+
+        await getSolBalance(true);
+        await getSolPrice();
+      } catch (err) {
+        console.log("Airdrop failed ", err);
+        toast({
+          title: "Transaction Status",
+          description: "Airdrop failed",
+          style: {
+            backgroundColor: "red",
+          },
+        });
+      }
+    }
+
+  };
 
   const getAccountMetaData = useCallback(() => {
-    console.log('seed', seed);
     const seedBuffer = mnemonicToSeedSync(seed);
-    console.log('seedBuffer', seedBuffer);
     const path = `m/44'/501'/${idx}'/0'`;
     const derivedSeed = derivePath(path, seedBuffer.toString("hex")).key;
     const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
@@ -52,6 +136,21 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
     setCopyPubKey(true);
     navigator.clipboard.writeText(publicKey || "");
   };
+
+  useEffect(() => {
+    setSolBalance(0);
+    setAccBalance(0);
+  
+    const fetchAccountData = async () => {
+      if (publicKey) {
+        await getSolBalance(true);
+        await getSolPrice();
+      }
+    };
+  
+    fetchAccountData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publicKey]);
 
   return (
     <div className="w-full p-6 flex flex-col bg-slate-700 rounded-tr-xl max-h-[70vh] overflow-y-scroll">
@@ -83,11 +182,14 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
       </div>
 
       <div className="flex justify-center items-center my-8 text-6xl font-semibold">
-        $ 0.00
+        $ {accBalance.toFixed(2)}
       </div>
 
       <div className="flex justify-between my-6 text-gray-300">
-        <div className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all">
+        <div
+          onClick={receiveSOL}
+          className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all"
+        >
           <FaPlus className="text-2xl font-thin" />
           <p className="mt-2 text-sm font-light">Receive</p>
         </div>
@@ -105,7 +207,6 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
         </div>
       </div>
 
-
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
           <Image
@@ -118,12 +219,12 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
 
           <div className="flex flex-col pl-4 flex-grow">
             <p className="text-xl font-semibold">Solana</p>
-            <p className="text-gray-300 text-sm">0 SOL</p>
+            <p className="text-gray-300 text-sm">{solBalance} SOL</p>
           </div>
 
           <div className="flex flex-col pl-4">
-            <p className="text-xl font-semibold text-end">$0.00</p>
-            <p className="text-gray-300 text-sm text-end">$0.00</p>
+            <p className="text-xl font-semibold text-end">${(solPrice * solBalance).toFixed(2)}</p>
+            <p className="text-gray-300 text-sm text-end">${solPrice.toFixed(2)}</p>
           </div>
         </div>
         <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
@@ -163,7 +264,7 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
             <p className="text-xl font-semibold text-end">$0.00</p>
             <p className="text-gray-300 text-sm text-end">$0.00</p>
           </div>
-        </div>     
+        </div>
         <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
           <Image
             src="https://s2.coinmarketcap.com/static/img/coins/200x200/3408.png"
@@ -184,9 +285,6 @@ export default function AccountDetails({seed, idx}: {seed: string, idx: number})
           </div>
         </div>
       </div>
-
-      
-
     </div>
   );
 }

@@ -47,7 +47,7 @@ const Wallet = () => {
 
     if (showDisclaimer && disclaimerChecked && viewAccountEnabled) {
       if (mnemonicWords) {
-        router.push("/accounts");
+        router.push("/wallet/accounts");
         sessionStorage.setItem("walletPhrase", mnemonicWords);
       }
     }
@@ -65,7 +65,7 @@ const Wallet = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-1/2 md:mx-auto">
+    <div className="flex flex-col justify-center items-center w-2/3 md:mx-auto">
       <h1 className="mb-2 text-xl font-semibold">New Wallet Created</h1>
       <div>
         <h2 className="text-center text-sm text-gray-400">
