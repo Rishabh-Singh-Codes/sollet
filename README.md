@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <br/>
+  <h1 style="color:red"><a href="https://gift-me-crypto.vercel.app/" target="_blank"> 💳 Sault 💵 </a></h1>
+  <p>
+    <strong>Unlock the power of Solana Blink for yourself and accept crypto gifts in your personal wallet.</strong>
+  </p>
+  <p>Create fully customized Blinks according to your needs.</p>
+<a href="https://sollet-wallet.vercel.app/" target="_blank">Live Link ↗</a> | 
+  <a href="https://youtu.be/Oq_ETD3yRVg" target="_blank">Demo Video ↗</a>
+  <br/>
+</div>
 
-## Getting Started
+<br />
 
-First, run the development server:
+<img width="1439" alt="Screenshot 2024-09-03 at 2 40 19 AM" src="https://github.com/user-attachments/assets/c7b6e952-7391-4751-be81-9b77e66fef33">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Watch the video ↗ <img width="1439" alt="Screenshot 2024-09-03 at 2 42 54 AM" src="https://github.com/user-attachments/assets/be588da8-2848-4c7c-a613-ff46a35d785f">](https://youtu.be/Oq_ETD3yRVg)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Idea
+A user wants to receive a gift/cryptocurrency/donation/payment (will be referred to as **gifts** going forward) from people directly on the platform they are on e.g., Twitter (X). To do this, they can create their own Blink and receive gifts. However, creating and hosting your own Blink is very tedious, backend tech-heavy, and time-consuming process. How do we solve this?
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> [!IMPORTANT]
+> - The user comes on our platform, and provides us with their basic details and the wallet in which they want to receive the payment and that's it. We will create and host the Blink on their behalf and we'll provide them with a link, which they share across the platforms.
 
-## Learn More
+<br />
 
-To learn more about Next.js, take a look at the following resources:
+> The user can create their own wallet as well, if they don't have one already.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### What is a Blink?
+Blink is an acronym for Blockchain + Link. These are links which unfurl into beautiful UIs that can be used to do any blockchain transaction directly on the platform. [Checkout this video](https://youtu.be/m_feBl0ROik?si=SwsT_zH6bgV7vC6P).
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
