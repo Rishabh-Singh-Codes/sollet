@@ -89,7 +89,7 @@ const CreateBlink = () => {
                   transaction
                 </h1>
                 <a
-                  href={`https://dial.to/?action=solana-action:${encodeURIComponent(blink)}`}
+                  href={`https://dial.to/devnet?action=solana-action:${encodeURIComponent(blink)}`}
                   target="_blank"
                   className="w-1/5"
                 >
