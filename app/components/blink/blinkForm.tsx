@@ -104,7 +104,7 @@ export function BlinkForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_BLINK_API!}/api/generate`, {params: values});
-      setBlink(res.data.blink);
+      
       toast({
         title: "Blink Status",
         description: "Your Blink is created",
@@ -112,8 +112,46 @@ export function BlinkForm({
           backgroundColor: "green",
         },
       });
+      
+      form.reset({
+        title: "",
+        description: "",
+        image: "",
+        publicKey: "",
+        price1: 0.1,
+        price2: 0.2,
+        price3: 0.3,
+        checkPrice1: true,
+        checkPrice2: true,
+        checkPrice3: true,
+        variablePrice: true,
+      });
+
+      setFormData({
+        title: "",
+        description: "",
+        image: "",
+        publicKey: "",
+        price1: 0.1,
+        price2: 0.2,
+        price3: 0.3,
+        checkPrice1: true,
+        checkPrice2: true,
+        checkPrice3: true,
+        variablePrice: true,
+      });
+
+      setBlink(res.data.blink);
+
     } catch(err) {
-      console.log('err', err)
+      console.log('err', err);
+      toast({
+        title: "Blink Status",
+        description: "Error in generating Blink",
+        style: {
+          backgroundColor: "red",
+        },
+      });
     }
   }
 

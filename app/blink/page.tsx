@@ -42,7 +42,7 @@ const Blink = () => {
             <Button variant={"secondary"}>No, create a wallet</Button>
           </Link>
           <Link href="/blink/create">
-            <Button>Yes, I have a wallet</Button>
+            <Button className="font-bold">Yes, I have a wallet</Button>
           </Link>
         </div>
       </div>

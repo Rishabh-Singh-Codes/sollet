@@ -16,7 +16,7 @@ export default function Home() {
         Create your own wallet with multiple accounts, view balances, do
         transactions and much more.
       </h1> */}
-      <p className="text-center text-base md:text-xl font-normal text-slate-500 dark:text-slate-300 max-w-md mt-2 mx-auto">
+      <p className="mt-10 text-center text-base md:text-xl font-normal text-slate-500 dark:text-slate-300 max-w-md mx-auto">
         Unlock the power of <span className="text-[#9945FF]">Solana</span>{" "}
         <span className="text-[#14F195]">Blink</span> for yourself and accept
         crypto gifts in your personal wallet.
