@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Exo_2 } from "next/font/google";
+import { Exo_2 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({ subsets: ["latin"] });
-const exo2 = Exo_2({subsets: ["latin"], variable: "--font-exo2"});
+const exo2 = Exo_2({ subsets: ["latin"], variable: "--font-exo2" });
 
 export const metadata: Metadata = {
   title: "Sollet - Your Solana Wallet",
@@ -33,6 +33,7 @@ export default function RootLayout({
           </div>
           <Toaster />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
