@@ -1,12 +1,12 @@
 <div align="center">
   <br/>
-  <h1 style="color:red"><a href="https://gift-me-crypto.vercel.app/" target="_blank"> 💳 Sault 💵 </a></h1>
+  <h1 style="color:red"><a href="https://sollet-wallet.vercel.app/" target="_blank"> 💳 Sault 💵 </a></h1>
   <p>
     <strong>Unlock the power of Solana Blink for yourself and accept crypto gifts in your personal wallet.</strong>
   </p>
   <p>Create fully customized Blinks according to your needs.</p>
 <a href="https://sollet-wallet.vercel.app/" target="_blank">Live Link ↗</a> | 
-  <a href="https://youtu.be/Oq_ETD3yRVg" target="_blank">Demo Video ↗</a>
+  <a href="https://youtu.be/0j2ISNZh0f8" target="_blank">Demo Video ↗</a>
   <br/>
 </div>
 
@@ -16,7 +16,7 @@
 
 # Demo
 
-[Watch the video ↗ <img width="1439" alt="Screenshot 2024-09-03 at 2 42 54 AM" src="https://github.com/user-attachments/assets/be588da8-2848-4c7c-a613-ff46a35d785f">](https://youtu.be/Oq_ETD3yRVg)
+[Watch the video ↗ <img width="1439" alt="Screenshot 2024-09-03 at 2 42 54 AM" src="https://github.com/user-attachments/assets/be588da8-2848-4c7c-a613-ff46a35d785f">](https://youtu.be/0j2ISNZh0f8)
 
 # Idea
 A user wants to receive a gift/cryptocurrency/donation/payment (will be referred to as **gifts** going forward) from people directly on the platform they are on e.g., Twitter (X). To do this, they can create their own Blink and receive gifts. However, creating and hosting your own Blink is very tedious, backend tech-heavy, and time-consuming process. How do we solve this?
