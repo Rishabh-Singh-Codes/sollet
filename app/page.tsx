@@ -55,6 +55,15 @@ export default function Home() {
           <Button className="font-bold">Create Blink</Button>
         </Link>
       </div>
+
+      <div className="mt-12 flex items-center gap-4">
+        <a href="https://www.youtube.com/watch?v=yiZxD1G__sI" target="_blank">
+          <button className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            Watch the Demo
+            <FaYoutube className="text-3xl ml-4 text-red-500 " />
+          </button>
+        </a>
+      </div>
     </main>
   );
 }
