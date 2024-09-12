@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { generateMnemonic } from "bip39";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const Wallet = () => {
   const [showPhrase, setShowPhrase] = useState<boolean>(false);
@@ -22,6 +23,7 @@ const Wallet = () => {
   const [mnemonicWords, setMnemonicWords] = useState<string | null>();
 
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -49,6 +51,13 @@ const Wallet = () => {
       if (mnemonicWords) {
         router.push("/wallet/accounts");
         sessionStorage.setItem("walletPhrase", mnemonicWords);
+        toast({
+          title: "Wallet Status",
+          description: "New Account created!",
+          style: {
+            backgroundColor: "green",
+          },
+        });
       }
     }
   };

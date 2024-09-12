@@ -32,7 +32,7 @@ const Accounts = () => {
     sessionStorage.setItem("currAccountIdx", String(accNo));
   }
   return (
-    <div className="w-1/2 border flex mx-auto h-[80vh] rounded-2xl">
+    <div className="w-full md:w-1/2 border flex mx-auto h-[80vh] rounded-2xl">
       <div className="flex flex-col w-full">
         <div className="flex flex-grow">
           <div className="max-w-[20%] px-3 border-r pt-4 py-4 flex flex-col items-center">
@@ -51,13 +51,13 @@ const Accounts = () => {
                 <div
                   key={index}
                   className={` ${
-                    currAccountIdx === index + 1 ? "bg-white" : "bg-slate-400"
-                  } rounded-full w-12 h-12 flex justify-center items-center mx-auto text-black text-xl font-bold mb-2`}
+                    currAccountIdx === index + 1 ? "bg-slate-800 dark:bg-white" : "bg-slate-500 dark:bg-slate-400"
+                  } rounded-full w-12 h-12 flex justify-center items-center mx-auto text-white dark:text-black text-xl font-bold mb-2`}
                   onClick={() => handleAccountChange(index)}
                 >
                   {`A${index + 1}`}
                 </div>
-                <div className="text-xs font-thin -mt-2">
+                <div className="text-[0.6rem] md:text-xs font-thin -mt-2 text-center">
                   Account {index + 1}
                 </div>
               </div>
@@ -68,12 +68,12 @@ const Accounts = () => {
             {seed && <AccountDetails seed={seed} idx={currAccountIdx} />}
           </div>
         </div>
-        <div className="bg-gray-700 p-4 w-full flex justify-around items-center rounded-b-2xl min-h-[10vh] border-t-[1px] border-black">
-          <BiSolidDollarCircle className="text-4xl hover:cursor-pointer" />
-          <IoGrid className="text-3xl text-gray-400 hover:cursor-pointer" />
-          <IoMdSwap className="text-3xl text-gray-400 hover:cursor-pointer" />
-          <BsLightningChargeFill className="text-3xl text-gray-400 hover:cursor-pointer" />
-          <TbWorld className="text-3xl text-gray-400 hover:cursor-pointer" />
+        <div className="bg-gray-500 dark:bg-gray-700 p-4 w-full flex justify-around items-center rounded-b-2xl min-h-[10vh] border-t-[1px] border-black">
+          <BiSolidDollarCircle className="text-white text-4xl hover:cursor-pointer" />
+          <IoGrid className="text-3xl text-gray-900 dark:text-gray-400 hover:cursor-pointer" />
+          <IoMdSwap className="text-3xl text-gray-900 dark:text-gray-400 hover:cursor-pointer" />
+          <BsLightningChargeFill className="text-3xl text-gray-900 dark:text-gray-400 hover:cursor-pointer" />
+          <TbWorld className="text-3xl text-gray-900 dark:text-gray-400 hover:cursor-pointer" />
         </div>
       </div>
     </div>

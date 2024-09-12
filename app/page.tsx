@@ -12,10 +12,6 @@ export default function Home() {
       <h1 className="text-5xl font-bold text-center">
         Create your Blink and accept crypto gifts in your personal wallet
       </h1>
-      {/* <h1 className="text-xl font-semibold w-1/3 text-center mx-auto my-20">
-        Create your own wallet with multiple accounts, view balances, do
-        transactions and much more.
-      </h1> */}
       <p className="mt-10 text-center text-base md:text-xl font-normal text-slate-500 dark:text-slate-300 max-w-md mx-auto">
         Unlock the power of <span className="text-[#9945FF]">Solana</span>{" "}
         <span className="text-[#14F195]">Blink</span> for yourself and accept
@@ -26,9 +22,9 @@ export default function Home() {
         Accept gifts from any platform
       </p>
       <div className="flex justify-between mt-2 items-center mx-auto">
-        <RiTwitterXFill className="text-5xl text-gray-400 hover:text-white mr-6" />
-        <FaYoutube className="text-5xl text-gray-400 hover:text-white mr-6" />
-        <FaInstagram className="text-5xl text-gray-400 hover:text-white" />
+        <RiTwitterXFill className="text-5xl text-gray-400 dark:hover:text-gray-600 mr-6" />
+        <FaYoutube className="text-5xl text-gray-400 dark:hover:text-gray-600 mr-6" />
+        <FaInstagram className="text-5xl text-gray-400 dark:hover:text-gray-600" />
       </div>
 
       <p className="mt-6 text-start text-base md:textlg font-normal text-neutral-500 dark:text-neutral-200 max-w-md mx-auto">
@@ -51,7 +47,7 @@ export default function Home() {
           alt="backpack"
         />
       </div>
-      <div className="flex gap-6 mt-8">
+      <div className="flex gap-6 mt-10">
         <Link href="/wallet">
           <Button variant={"secondary"}>Create Wallet</Button>
         </Link>

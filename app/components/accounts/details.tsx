@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoKeySharp } from "react-icons/io5";
+import { TbReload } from "react-icons/tb";
 import {
   BiSolidCopyAlt,
   BiSolidCheckCircle,
@@ -16,11 +17,8 @@ import { mnemonicToSeedSync } from "bip39";
 import { derivePath } from "ed25519-hd-key";
 import nacl from "tweetnacl";
 import {
-  clusterApiUrl,
-  Connection,
   Keypair,
   LAMPORTS_PER_SOL,
-  PublicKey,
 } from "@solana/web3.js";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
@@ -52,53 +50,6 @@ export default function AccountDetails({
   };
 
   const getLatestPriceAndBalance = async() => {
-    
-    // // Get SOL balance for the account
-    // try {
-    //   const res = await axios.get(`/api/account?publicKey=${publicKey}`);
-    //   const newBalance = res.data.result.value / LAMPORTS_PER_SOL;
-    //   setSolBalance(newBalance);
-    // } catch (err) {
-    //   console.log("Error while fetching balance", err);
-    //   toast({
-    //     title: "Balance",
-    //     description: "Fetching failed for SOL balance",
-    //     style: {
-    //       backgroundColor: "red",
-    //     },
-    //   });
-    // }
-
-    // // Get SOL price
-    // try {
-    //   const res = await axios.get("/api/tokens");
-    //   setSolPrice(res.data.data.SOL.price);
-    //   calculateAccountBalance();
-    // } catch (err) {
-    //   console.log("Error while fetching current Price", err);
-    //   toast({
-    //     title: "Price",
-    //     description: "Fetching failed",
-    //     style: {
-    //       backgroundColor: "red",
-    //     },
-    //   });
-    // }
-
-    // try {
-    //   const accBalance = parseFloat((solPrice * solBalance).toFixed(2));
-    //   setAccBalance(accBalance);
-    // } catch (err) {
-    //   console.log("Error while getting Account Balance", err);
-    //   toast({
-    //     title: "Price",
-    //     description: "Fetching failed",
-    //     style: {
-    //       backgroundColor: "red",
-    //     },
-    //   });
-    // }
-
     try {
       const [balanceRes, priceRes] = await Promise.all([
         axios.get(`/api/account?publicKey=${publicKey}`),
@@ -121,48 +72,6 @@ export default function AccountDetails({
     }
   }
 
-  // const getSolBalance = async () => {
-  //   if (publicKey) {
-  //     try {
-  //       const res = await axios.get(`/api/account?publicKey=${publicKey}`);
-  //       const newBalance = res.data.result.value / LAMPORTS_PER_SOL;
-  //       setSolBalance(newBalance);
-  //     } catch (err) {
-  //       console.log("Error while fetching balance", err);
-  //       toast({
-  //         title: "Balance",
-  //         description: "Fetching failed",
-  //         style: {
-  //           backgroundColor: "red",
-  //         },
-  //       });
-  //     }
-  //   }
-  // };
-
-  // const getSolPrice = async () => {
-  //   try {
-  //     const res = await axios.get("/api/tokens");
-  //     setSolPrice(res.data.data.SOL.price);
-  //     calculateAccountBalance();
-  //   } catch (err) {
-  //     console.log("Error while fetching current Price", err);
-  //     toast({
-  //       title: "Price",
-  //       description: "Fetching failed",
-  //       style: {
-  //         backgroundColor: "red",
-  //       },
-  //     });
-  //   }
-  // };
-
-  // const calculateAccountBalance = async () => {
-  //   const accBalance = parseFloat((solPrice * solBalance).toFixed(2));
-  //   setAccBalance(accBalance);
-  //   console.log("calculateAccountBalance", accBalance);
-  // }
-
   const receiveSOL = async () => {
     if (publicKey) {
       try {
@@ -175,10 +84,6 @@ export default function AccountDetails({
             backgroundColor: "green",
           },
         });
-
-        // await getSolBalance();
-        // await getSolPrice();
-        // await calculateAccountBalance();
 
         await getLatestPriceAndBalance();
       } catch (err) {
@@ -205,13 +110,6 @@ export default function AccountDetails({
   }, [seed, idx]);
 
   useEffect(() => {
-    // if (publicKey) {
-    //   const getLatestData = async () => {
-    //     await getLatestPriceAndBalance();
-    //   };
-  
-    //   getLatestData();
-  // }
 if (publicKey) {
   getLatestPriceAndBalance();
 }
@@ -236,7 +134,7 @@ if (publicKey) {
   }, [copyPubKey]);
 
   return (
-    <div className="w-full p-6 flex flex-col bg-slate-700 rounded-tr-xl max-h-[70vh] overflow-y-scroll">
+    <div className="w-full p-6 px-2 md:p-6 flex flex-col bg-slate-200 dark:bg-slate-700 rounded-tr-xl max-h-[70vh] overflow-y-scroll">
       <div className="text-sm font-bold text-center flex justify-center items-center">
         <div className="rounded-full bg-gray-300 size-6 flex justify-center items-center p-1 text-black mr-3">
           A{idx}
@@ -261,37 +159,38 @@ if (publicKey) {
         ) : (
           <BiSolidCopyAlt className="mr-2" />
         )}
-        {publicKey}
+        {publicKey?.slice(0, 4) + "...." + publicKey?.slice(publicKey.length - 4)}
       </div>
 
       <div className="flex justify-center items-center my-8 text-6xl font-semibold">
         $ {accBalance.toFixed(2)}
+        <TbReload onClick={() => window.location.reload()} className="text-xl ml-2  dark:text-slate-300 dark:hover:text-white hover:cursor-pointer"/>
       </div>
 
-      <div className="flex justify-between my-6 text-gray-300">
+      <div className="flex justify-between my-6 dark:text-gray-300">
         <div
             onClick={receiveSOL}
-          className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all"
+          className="flex flex-col bg-slate-400 dark:bg-slate-800 py-3 px-2 md:p-4 justify-center items-center rounded-2xl min-w-16 md:min-w-20 hover:cursor-pointer hover:bg-slate-500 dark:hover:bg-slate-900 transition-all"
         >
-          <FaPlus className="text-2xl font-thin" />
-          <p className="mt-2 text-sm font-light">Receive</p>
+          <FaPlus className="md:text-2xl font-thin" />
+          <p className="mt-2 text-xs md:text-sm font-light">Receive</p>
         </div>
-        <div className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all">
-          <LuSend className="text-2xl font-thin" />
-          <p className="mt-2 text-sm font-light">Send</p>
+        <div className="flex flex-col bg-slate-400 dark:bg-slate-800 py-3 px-2 md:p-4 justify-center items-center rounded-2xl min-w-16 md:min-w-20 hover:cursor-pointer hover:bg-slate-500 dark:hover:bg-slate-900 transition-all">
+          <LuSend className="md:text-2xl font-thin" />
+          <p className="mt-2 text-xs md:text-sm font-light">Send</p>
         </div>
-        <div className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all">
-          <IoMdSwap className="text-2xl font-thin" />
-          <p className="mt-2 text-sm font-light">Swap</p>
+        <div className="flex flex-col bg-slate-400 dark:bg-slate-800 py-3 px-2 md:p-4 justify-center items-center rounded-2xl min-w-16 md:min-w-20 hover:cursor-pointer hover:bg-slate-500 dark:hover:bg-slate-900 transition-all">
+          <IoMdSwap className="md:text-2xl font-thin" />
+          <p className="mt-2 text-xs md:text-sm font-light">Swap</p>
         </div>
-        <div className="flex flex-col bg-slate-800 p-4 justify-center items-center rounded-2xl min-w-20 hover:cursor-pointer hover:bg-slate-900 transition-all">
-          <FaDollarSign className="text-2xl font-thin" />
-          <p className="mt-2 text-sm font-light">Buy</p>
+        <div className="flex flex-col bg-slate-400 dark:bg-slate-800 py-3 px-2 md:p-4 justify-center items-center rounded-2xl min-w-16 md:min-w-20 hover:cursor-pointer hover:bg-slate-500 dark:hover:bg-slate-900 transition-all">
+          <FaDollarSign className="md:text-2xl font-thin" />
+          <p className="mt-2 text-xs md:text-sm font-light">Buy</p>
         </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
+        <div className="flex items-center p-4 bg-slate-300 dark:bg-slate-600 w-full rounded-xl mb-3">
           <Image
             src="https://s2.coinmarketcap.com/static/img/coins/200x200/5426.png"
             alt="Solana"
@@ -302,19 +201,19 @@ if (publicKey) {
 
           <div className="flex flex-col pl-4 flex-grow">
             <p className="text-xl font-semibold">Solana</p>
-            <p className="text-gray-300 text-sm">{solBalance} SOL</p>
+            <p className="dark:text-gray-300 text-sm">{solBalance} SOL</p>
           </div>
 
           <div className="flex flex-col pl-4">
             <p className="text-xl font-semibold text-end">
               ${(solPrice * solBalance).toFixed(2)}
             </p>
-            <p className="text-gray-300 text-sm text-end">
+            <p className="dark:text-gray-300 text-sm text-end">
               ${solPrice.toFixed(2)}
             </p>
           </div>
         </div>
-        <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
+        <div className="flex items-center p-4 bg-slate-300 dark:bg-slate-600 w-full rounded-xl mb-3">
           <Image
             src="https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png"
             alt="Solana"
@@ -325,15 +224,15 @@ if (publicKey) {
 
           <div className="flex flex-col pl-4 flex-grow">
             <p className="text-xl font-semibold">Ethereum</p>
-            <p className="text-gray-300 text-sm">0 ETH</p>
+            <p className="dark:text-gray-300 text-sm">0 ETH</p>
           </div>
 
           <div className="flex flex-col pl-4">
             <p className="text-xl font-semibold text-end">$0.00</p>
-            <p className="text-gray-300 text-sm text-end">$0.00</p>
+            <p className="dark:text-gray-300 text-sm text-end">$0.00</p>
           </div>
         </div>
-        <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
+        <div className="flex items-center p-4 bg-slate-300 dark:bg-slate-600 w-full rounded-xl mb-3">
           <Image
             src="https://s2.coinmarketcap.com/static/img/coins/200x200/1.png"
             alt="Solana"
@@ -344,15 +243,15 @@ if (publicKey) {
 
           <div className="flex flex-col pl-4 flex-grow">
             <p className="text-xl font-semibold">Bitcoin</p>
-            <p className="text-gray-300 text-sm">0 BTC</p>
+            <p className="dark:text-gray-300 text-sm">0 BTC</p>
           </div>
 
           <div className="flex flex-col pl-4">
             <p className="text-xl font-semibold text-end">$0.00</p>
-            <p className="text-gray-300 text-sm text-end">$0.00</p>
+            <p className="dark:text-gray-300 text-sm text-end">$0.00</p>
           </div>
         </div>
-        <div className="flex items-center p-4 bg-slate-600 w-full rounded-xl mb-3">
+        <div className="flex items-center p-4 bg-slate-300 dark:bg-slate-600 w-full rounded-xl mb-3">
           <Image
             src="https://s2.coinmarketcap.com/static/img/coins/200x200/3408.png"
             alt="Solana"
@@ -363,12 +262,12 @@ if (publicKey) {
 
           <div className="flex flex-col pl-4 flex-grow">
             <p className="text-xl font-semibold">USDC</p>
-            <p className="text-gray-300 text-sm">0 USDC</p>
+            <p className="dark:text-gray-300 text-sm">0 USDC</p>
           </div>
 
           <div className="flex flex-col pl-4">
             <p className="text-xl font-semibold text-end">$0.00</p>
-            <p className="text-gray-300 text-sm text-end">$0.00</p>
+            <p className="dark:text-gray-300 text-sm text-end">$0.00</p>
           </div>
         </div>
       </div>

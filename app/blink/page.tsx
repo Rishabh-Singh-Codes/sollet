@@ -30,7 +30,7 @@ const Blink = () => {
         </div>
       </div>
       <div className="flex flex-col mt-20 text-center w-full items-center">
-        <h1 className="text-2xl font-bold">Let`&apos;s create your Blink</h1>
+        <h1 className="text-2xl font-bold">Let&apos;s create your Blink</h1>
         <h3 className="text-sm font-semibold mt-2 text-gray-400">
           To create your own Blink, you need a crypto Wallet
         </h3>
