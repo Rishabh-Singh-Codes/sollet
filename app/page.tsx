@@ -5,10 +5,15 @@ import Link from "next/link";
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import ShinyText from "@/components/ShinyText";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center md:px-24 py-16">
+    <main className="flex flex-col items-center md:px-24 py-10">
+      <ShinyText
+        text="Received grants from Superteam"
+        className="border-[0.5px] px-3 py-1 rounded-2xl border-violet-200 mb-4"
+      />
       <h1 className="text-5xl font-bold text-center">
         Create your Blink and accept crypto gifts in your personal wallet
       </h1>

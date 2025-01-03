@@ -76,11 +76,16 @@ const config = {
             backgroundPosition: "-200% 0",
           },
         },
+        shine: {
+          "0%": { "background-position": "100%" },
+          "100%": { "background-position": "-100%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         shimmer: "shimmer 1s linear infinite",
+        shine: 'shine 5s linear infinite',
       },
       fontFamily: {
         exo2: ["var(--font-exo2)", "sans-serif"],
