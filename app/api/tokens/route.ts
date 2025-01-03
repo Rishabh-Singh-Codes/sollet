@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
     if (!LAST_UPDATED_AT || currTime - LAST_UPDATED_AT >= PRICE_REFRESH_RATE) {
         try {
-          const response = await axios.get("https://price.jup.ag/v6/price?ids=SOL");
+          const response = await axios.get("https://api.jup.ag/price/v2?ids=So11111111111111111111111111111111111111112");
     
           LAST_UPDATED_AT = currTime;
           LAST_FETCHED_DATA = response.data;
