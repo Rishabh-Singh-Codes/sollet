@@ -58,8 +58,8 @@ export default function AccountDetails({
 
       const newBalance = balanceRes.data.result.value / LAMPORTS_PER_SOL;
       setSolBalance(newBalance);
-      setSolPrice(priceRes.data.data.SOL.price);
-      setAccBalance(parseFloat((newBalance * priceRes.data.data.SOL.price).toFixed(2)));
+      setSolPrice(parseFloat(priceRes.data.data.So11111111111111111111111111111111111111112.price));
+      setAccBalance(parseFloat((newBalance * priceRes.data.data.So11111111111111111111111111111111111111112.price).toFixed(2)));
     } catch (err) {
       console.log("Error while fetching balance or price", err);
       toast({
